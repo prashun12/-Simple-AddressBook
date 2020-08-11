@@ -1,0 +1,146 @@
+package oOps.addressBook;
+
+import javax.swing.JOptionPane;
+
+public class PersonInfo {
+	private String name;
+	private String address;
+	private String phoneNum;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String sname) {
+		name = sname;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String saddress) {
+		address = saddress;
+	}
+
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String sphoneNum) {
+		phoneNum = sphoneNum;
+	}
+
+	// parameterized constructer.
+	public PersonInfo(String n, String a, String p) {
+		setName(n);
+		setAddress(a);
+		setPhoneNum(p);
+	}
+
+	// method for displaying person record on GUI.
+	public void print() {
+		JOptionPane.showMessageDialog(null, "name: " + name + "address: " + address + "phoneNum: " + phoneNum);
+
+	}
+
+}
+
+
+----------------------------------------------------------------------------
+//Addressbook class
+
+
+import javax.swing.JOptionPane;
+
+public class Addressbook {
+	ArrayList<PersonInfo> persons;
+	private String pNum;
+	private String name;
+	private String add;
+
+	public Addressbook() {
+		persons = new ArrayList<PersonInfo>();
+
+	}
+
+	// Add new person to ArrayList.
+	public void addPerson() {
+		String name = JOptionPane.showInputDialog("Enter the name");
+		String add = JOptionPane.showInputDialog("Enter the address");
+		String pNum = JOptionPane.showInputDialog("Enter the number");
+		PersonInfo p = new PersonInfo(name, add, pNum);
+		persons.add(p);
+	}
+
+	
+
+	// add above personInfo object to arraylist.
+//search person record by name by iterating over arraylist.
+	public void searchPerson(String n) {
+		for (PersonInfo person : persons) {
+			// Downcasting
+			PersonInfo p = person;
+			if (n.equals(p.getName())) {
+				p.print();
+			}
+		}
+	}
+
+//Delete person method.
+	public void deletePerson(String n) {
+		for (int i = 0; i < persons.size(); i++) {
+			PersonInfo p = persons.get(i);
+			if (n.equals(p.getName())) {
+				p.print();
+				persons.remove(i);
+
+			}
+		}
+	}
+
+}
+-------------------------------------------------------------------------
+//Runner TestBook Class.
+
+package oOps.addressBook;
+
+import javax.swing.JOptionPane;
+
+public class TestBook {
+
+	public static void main(String[] args) {
+		Addressbook ab = new Addressbook();
+		String input, s;
+		int cs;
+		while (true) {
+			input = JOptionPane.showInputDialog(
+					"Enter 1 to add" + "\n Enter 2 to search" + "\n Enter 3 to delete" + "\n Enter 4 to exit");
+			cs = Integer.parseInt(input);
+			switch (cs) {
+			case 1:
+				ab.addPerson();
+				break;
+			case 2:
+				s = JOptionPane.showInputDialog("Enter name to Search");
+				ab.searchPerson(s);
+				break;
+			case 3:
+				s = JOptionPane.showInputDialog("Enter name to Delete");
+				ab.deletePerson(s);
+				break;
+			case 4:
+				System.exit(0);
+
+			}
+
+		}
+
+	}
+
+}
+
+
+
+
+
